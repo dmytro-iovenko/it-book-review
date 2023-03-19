@@ -1,6 +1,9 @@
-package com.example.review.model;
+package com.example.review.entity;
 
 import javax.persistence.*;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 //+-----------+-------------+------+-----+---------+----------------+
 //| Field     | Type        | Null | Key | Default | Extra          |
@@ -11,6 +14,8 @@ import javax.persistence.*;
 //| role      | varchar(10) | YES  |     | NULL    |                |
 //+-----------+-------------+------+-----+---------+----------------+
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name="users")
 public class User {
@@ -27,37 +32,5 @@ public class User {
 
 	@Column(name="role")
 	private String role;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
 
 }

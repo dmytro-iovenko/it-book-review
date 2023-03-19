@@ -1,6 +1,6 @@
 package com.example.review.service;
 
-import com.example.review.model.User;
+import com.example.review.entity.User;
 import com.example.review.model.UserDetailsImpl;
 import com.example.review.repository.UserRepository;
 

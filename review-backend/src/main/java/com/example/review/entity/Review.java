@@ -1,6 +1,9 @@
-package com.example.review.model;
+package com.example.review.entity;
 
 import javax.persistence.*;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 //+--------+---------------+------+-----+---------+----------------+
 //| Field  | Type          | Null | Key | Default | Extra          |
@@ -13,6 +16,8 @@ import javax.persistence.*;
 //| rate   | int           | YES  |     | NULL    |                |
 //+--------+---------------+------+-----+---------+----------------+
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name="reviews")
 public class Review {
@@ -36,60 +41,12 @@ public class Review {
 	@Column(name="rate")
 	private int rate;
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public long getIsbn() {
-		return isbn;
-	}
-
-	public void setIsbn(long isbn) {
-		this.isbn = isbn;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getReview() {
-		return review;
-	}
-
-	public void setReview(String review) {
-		this.review = review;
-	}
-
-	public long getDate() {
-		return date;
-	}
-
-	public void setDate(long date) {
-		this.date = date;
-	}
-
-	public int getRate() {
-		return rate;
-	}
-
-	public void setRate(int rate) {
-		this.rate = rate;
-	}
-	
 	public void updateFields(Review r) {
-		this.id = r.getId();
-		this.isbn = r.getIsbn();
-		this.name = r.getName();
-		this.review = r.getReview();
-		this.date = r.getDate();
-		this.rate = r.getRate();
+		this.setId(r.getId());
+		this.setIsbn(r.getIsbn());
+		this.setName(r.getName());
+		this.setReview(r.getReview());
+		this.setDate(r.getDate());
+		this.setRate(r.getRate());
 	}
 }

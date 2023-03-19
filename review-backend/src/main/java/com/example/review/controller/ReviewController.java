@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.review.entity.Review;
 import com.example.review.exception.ResourceNotFoundException;
-import com.example.review.model.Review;
 import com.example.review.repository.ReviewRepository;
 
 @CrossOrigin(origins="http://localhost:3000")
