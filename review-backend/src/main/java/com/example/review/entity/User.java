@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 //+-----------+-------------+------+-----+---------+----------------+
 //| Field     | Type        | Null | Key | Default | Extra          |
@@ -15,6 +17,7 @@ import lombok.NoArgsConstructor;
 //+-----------+-------------+------+-----+---------+----------------+
 
 @Data
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="users")
@@ -22,14 +25,17 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Long id;
 	
+    @NonNull
 	@Column(name="user_name")
 	private String userName;
 
+    @NonNull
 	@Column(name="password")
 	private String password;
 
+    @NonNull
 	@Column(name="role")
 	private String role;
 

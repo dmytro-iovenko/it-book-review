@@ -35,7 +35,7 @@ public class ReviewController {
 	//get review by ID
 	@GetMapping("/review/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Review> getReviewById(@PathVariable int id) {
+	public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
 		Review review = reviewRepo.findById(id).orElseThrow(() ->  new ResourceNotFoundException("Review not found"));
 		return ResponseEntity.ok(review);                 
 	}
@@ -51,7 +51,7 @@ public class ReviewController {
 	//update review by ID
 	@PutMapping("/review/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Review> updateReview(@PathVariable int id, @RequestBody Review review) {
+	public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Review review) {
 		Review r = reviewRepo.findById(id).orElseThrow(() ->  new ResourceNotFoundException("Review not found"));
 		r.updateFields(review);
 		Review updatedReview = reviewRepo.save(r);
@@ -61,7 +61,7 @@ public class ReviewController {
 	//delete review by ID
 	@DeleteMapping("/review/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String deleteReview(@PathVariable int id) {
+	public String deleteReview(@PathVariable Long id) {
 		if (!reviewRepo.existsById(id)) {
 			throw new ResourceNotFoundException("Review not found");
 		}

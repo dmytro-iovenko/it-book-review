@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ReviewRepository extends CrudRepository<Review, Integer> {
+public interface ReviewRepository extends CrudRepository<Review, Long> {
 	List<Review> findAll();
 
 	List<Review> findByIsbnOrderByDateDesc(long isbn);
 
-	Optional<Review> findById(int id);
+	Optional<Review> findById(Long id);
 }

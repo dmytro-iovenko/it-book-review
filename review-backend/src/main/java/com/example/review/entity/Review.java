@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 //+--------+---------------+------+-----+---------+----------------+
 //| Field  | Type          | Null | Key | Default | Extra          |
@@ -17,6 +19,7 @@ import lombok.NoArgsConstructor;
 //+--------+---------------+------+-----+---------+----------------+
 
 @Data
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="reviews")
@@ -24,22 +27,28 @@ public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Long id;
 	
+    @NonNull
 	@Column(name="isbn")
-	private long isbn;
+	private Long isbn;
 	
+    @NonNull
 	@Column(name="name")
 	private String name;
 	
+    @NonNull
+	@Lob
 	@Column(name="review")
 	private String review;
 	
+    @NonNull
 	@Column(name="date")
-	private long date;
+	private Long date;
 	
+    @NonNull
 	@Column(name="rate")
-	private int rate;
+	private Integer rate;
 	
 	public void updateFields(Review r) {
 		this.setId(r.getId());
