@@ -40,8 +40,7 @@ public class ReviewController {
 	@GetMapping("/review/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
-		Review review = reviewRepo.findById(id).orElseThrow(() ->  new ResourceNotFoundException("Review not found"));
-		return ResponseEntity.ok(review);                 
+		return new ResponseEntity<>(reviewService.getReviewById(id), HttpStatus.OK);
 	}
 	
 	//create new review
