@@ -32,6 +32,13 @@ public class ReviewServiceImpl implements ReviewService {
         Optional<Review> review = reviewRepository.findById(id);
         return unwrapReview(review, id);
     }
+
+    @Override
+    public Review createReview(Review review) {
+		long date = System.currentTimeMillis();
+		review.setDate(date);
+        return reviewRepository.save(review);
+    }
     
     static Review unwrapReview(Optional<Review> review, Long id) {
         if (review.isPresent()) return review.get();

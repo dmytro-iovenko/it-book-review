@@ -45,10 +45,8 @@ public class ReviewController {
 	
 	//create new review
 	@PostMapping("/review")
-	public Review newReview(@RequestBody Review review) {
-		long date = System.currentTimeMillis();
-		review.setDate(date);
-		return reviewRepo.save(review);
+	public ResponseEntity<Review> createReview(@RequestBody Review review) {
+        return new ResponseEntity<>(reviewService.createReview(review), HttpStatus.CREATED);
 	}
 	
 	//update review by ID

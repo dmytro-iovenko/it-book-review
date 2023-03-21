@@ -8,4 +8,5 @@ public interface ReviewService {
     List<Review> getReviews();
     List<Review> getReviewsByIsbn(Long isbn);
     Review getReviewById(Long id);
+    Review createReview(Review review);
 }
