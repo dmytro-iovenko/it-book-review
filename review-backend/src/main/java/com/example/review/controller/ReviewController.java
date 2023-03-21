@@ -10,25 +10,28 @@ import org.springframework.web.bind.annotation.*;
 import com.example.review.entity.Review;
 import com.example.review.exception.ResourceNotFoundException;
 import com.example.review.repository.ReviewRepository;
+import com.example.review.service.ReviewService;
 
 @CrossOrigin(origins="http://localhost:3000")
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api")
 public class ReviewController {
 	
 	@Autowired
 	private ReviewRepository reviewRepo;
+	@Autowired
+	private ReviewService reviewService;
 
 	//get all reviews
 	@GetMapping("/reviews")
 	@PreAuthorize("hasRole('ADMIN')")
-	public List<Review> getAllReviews() {
-		return reviewRepo.findAll();
+	public ResponseEntity<List<Review>> getReviews() {
+		return new ResponseEntity<>(reviewService.getReviews(), HttpStatus.OK);
 	}
 	
 	//get reviews by ISBN
 	@GetMapping("/reviews/{isbn}")
-	public List<Review> getReviewsByIsbn(@PathVariable long isbn) {
+	public List<Review> getReviewsByIsbn(@PathVariable Long isbn) {
 		return reviewRepo.findByIsbnOrderByDateDesc(isbn);
 	}
 

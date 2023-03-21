@@ -10,9 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface ReviewRepository extends CrudRepository<Review, Long> {
-	List<Review> findAll();
-
 	List<Review> findByIsbnOrderByDateDesc(long isbn);
-
 	Optional<Review> findById(Long id);
 }
