@@ -6,4 +6,5 @@ import com.example.review.entity.Review;
 
 public interface ReviewService {
     List<Review> getReviews();
+    List<Review> getReviewsByIsbn(Long isbn);
 }

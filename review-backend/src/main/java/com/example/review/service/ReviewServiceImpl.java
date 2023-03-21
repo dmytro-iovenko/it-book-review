@@ -19,5 +19,10 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> getReviews() {
         return (List<Review>)reviewRepository.findAll();
     }
+
+    @Override
+    public List<Review> getReviewsByIsbn(Long isbn) {
+		return reviewRepository.findByIsbnOrderByDateDesc(isbn);
+    }
     
 }
