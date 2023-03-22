@@ -46,6 +46,14 @@ public class ReviewServiceImpl implements ReviewService {
 		review.updateFields(updatedReview);
         return reviewRepository.save(review);
     }
+
+    @Override
+    public void deleteReview(Long id) {
+		if (!reviewRepository.existsById(id)) {
+			throw new ResourceNotFoundException("The review id '" + id + "' does not existis");
+		}
+        reviewRepository.deleteById(id);
+    }
     
     static Review unwrapReview(Optional<Review> review, Long id) {
         if (review.isPresent()) return review.get();

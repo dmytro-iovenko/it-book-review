@@ -9,8 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.review.entity.Review;
-import com.example.review.exception.ResourceNotFoundException;
-import com.example.review.repository.ReviewRepository;
 import com.example.review.service.ReviewService;
 
 @CrossOrigin(origins="http://localhost:3000")
@@ -18,8 +16,6 @@ import com.example.review.service.ReviewService;
 @RequestMapping("/api")
 public class ReviewController {
 	
-	@Autowired
-	private ReviewRepository reviewRepo;
 	@Autowired
 	private ReviewService reviewService;
 
@@ -59,12 +55,9 @@ public class ReviewController {
 	//delete review by ID
 	@DeleteMapping("/review/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String deleteReview(@PathVariable Long id) {
-		if (!reviewRepo.existsById(id)) {
-			throw new ResourceNotFoundException("Review not found");
-		}
-		reviewRepo.deleteById(id);
-	    return "The review with id: "+ id +" is removed from the database.";
+	public ResponseEntity<HttpStatus> deleteReview(@PathVariable Long id) {
+        reviewService.deleteReview(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 }
