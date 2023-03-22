@@ -46,17 +46,14 @@ public class ReviewController {
 	//create new review
 	@PostMapping("/review")
 	public ResponseEntity<Review> createReview(@RequestBody Review review) {
-        return new ResponseEntity<>(reviewService.createReview(review), HttpStatus.CREATED);
+        return new ResponseEntity<>(reviewService.createReview(review), HttpStatus.OK);
 	}
 	
 	//update review by ID
 	@PutMapping("/review/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Review review) {
-		Review r = reviewRepo.findById(id).orElseThrow(() ->  new ResourceNotFoundException("Review not found"));
-		r.updateFields(review);
-		Review updatedReview = reviewRepo.save(r);
-		return ResponseEntity.ok(updatedReview); 
+        return new ResponseEntity<>(reviewService.updateReview(id, review), HttpStatus.CREATED);
 	}
 	
 	//delete review by ID
