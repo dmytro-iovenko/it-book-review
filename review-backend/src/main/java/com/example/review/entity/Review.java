@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 //+--------+---------------+------+-----+---------+----------------+
 //| Field  | Type          | Null | Key | Default | Extra          |
 //+--------+---------------+------+-----+---------+----------------+
-//| id     | int           | NO   | PRI | NULL    | auto_increment |
+//| id     | bigint        | NO   | PRI | NULL    | auto_increment |
 //| isbn   | bigint        | YES  |     | NULL    |                |
 //| name   | varchar(30)   | YES  |     | NULL    |                |
 //| review | varchar(2000) | YES  |     | NULL    |                |

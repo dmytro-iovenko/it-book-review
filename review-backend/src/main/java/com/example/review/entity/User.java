@@ -10,10 +10,10 @@ import lombok.RequiredArgsConstructor;
 //+-----------+-------------+------+-----+---------+----------------+
 //| Field     | Type        | Null | Key | Default | Extra          |
 //+-----------+-------------+------+-----+---------+----------------+
-//| id        | int         | NO   | PRI | NULL    | auto_increment |
-//| user_name | varchar(50) | YES  |     | NULL    |                |
-//| password  | varchar(50) | YES  |     | NULL    |                |
-//| role      | varchar(10) | YES  |     | NULL    |                |
+//| id        | bigint      | NO   | PRI | NULL    | auto_increment |
+//| user_name | varchar(50) | NO   |     | NULL    |                |
+//| password  | varchar(50) | NO   |     | NULL    |                |
+//| role      | varchar(10) | NO   |     | NULL    |                |
 //+-----------+-------------+------+-----+---------+----------------+
 
 @Data
@@ -24,19 +24,18 @@ import lombok.RequiredArgsConstructor;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private Long id;
+	private long id;
 	
     @NonNull
-	@Column(name="user_name")
-	private String userName;
+	@Column(nullable = false, unique = true)
+	private String username;
 
     @NonNull
-	@Column(name="password")
+	@Column(nullable = false)
 	private String password;
 
     @NonNull
-	@Column(name="role")
+	@Column(nullable = false)
 	private String role;
 
 }

@@ -13,12 +13,12 @@ import java.util.List;
 // contains necessary information (username, password, authorities)
 // to build an Authentication object
 public class UserDetailsImpl implements UserDetails {
-	private String userName;
+	private String username;
     private String password;
     private List<GrantedAuthority> authorities;
 
     public UserDetailsImpl(User user) {
-        this.userName = user.getUserName();
+        this.username = user.getUsername();
         this.password = user.getPassword();
         this.authorities = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));
     }
@@ -35,7 +35,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override

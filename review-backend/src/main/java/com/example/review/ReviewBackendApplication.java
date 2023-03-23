@@ -1,20 +1,22 @@
 package com.example.review;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.review.entity.Review;
 import com.example.review.entity.User;
 import com.example.review.repository.ReviewRepository;
 import com.example.review.repository.UserRepository;
 
+import lombok.AllArgsConstructor;
+
 @SpringBootApplication
+@AllArgsConstructor
 public class ReviewBackendApplication implements CommandLineRunner {
-	@Autowired
 	UserRepository userRepository;
-	@Autowired
 	ReviewRepository reviewRepository;
 
 	public static void main(String[] args) {
@@ -30,7 +32,6 @@ public class ReviewBackendApplication implements CommandLineRunner {
 		for (int i = 0; i < users.length; i++) {
 			userRepository.save(users[i]);
 		}
-
 		Review[] reviews = new Review[] {
 			new Review(1001643027241L, "Michael Scott", "Disappointing read. The content lacks coherence, and explanations are convoluted. Too much jargon without sufficient context. Felt more like a disjointed compilation of facts rather than a cohesive guide for someone trying to grasp IT fundamentals.", 1646947328536L, 2),
 			new Review(9781718501089L, "Meredith Grey", "An indispensable guide for aspiring IT professionals! This book seamlessly blends theory with real-world examples, providing a solid foundation for understanding complex concepts. A must-read for anyone entering the dynamic field of information technology.", 1646947722346L, 4),
@@ -39,7 +40,11 @@ public class ReviewBackendApplication implements CommandLineRunner {
 		for (int i = 0; i < reviews.length; i++) {
 			reviewRepository.save(reviews[i]);
 		}
-
 	}
+
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}	
 
 }
