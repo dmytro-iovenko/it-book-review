@@ -49,15 +49,13 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void deleteReview(Long id) {
-		if (!reviewRepository.existsById(id)) {
-			throw new ResourceNotFoundException("The review id '" + id + "' does not existis");
-		}
-        reviewRepository.deleteById(id);
+		if (reviewRepository.existsById(id)) reviewRepository.deleteById(id);
+        else throw new ResourceNotFoundException(id, Review.class);
     }
     
     static Review unwrapReview(Optional<Review> review, Long id) {
         if (review.isPresent()) return review.get();
-        else throw new ResourceNotFoundException("The review id '" + id + "' does not existis");
+        else throw new ResourceNotFoundException(id, Review.class);
     }
 
 }

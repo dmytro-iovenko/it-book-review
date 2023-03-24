@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     static User unwrapUser(Optional<User> entity, Long id) {
         if (entity.isPresent()) return entity.get();
-        else throw new ResourceNotFoundException("The review id '" + id + "' does not existis");
+        else throw new ResourceNotFoundException(id, User.class);
     }
     
 }
