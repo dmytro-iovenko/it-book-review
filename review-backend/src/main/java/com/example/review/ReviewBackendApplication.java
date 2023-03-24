@@ -30,6 +30,7 @@ public class ReviewBackendApplication implements CommandLineRunner {
             new User("admin", "admin", "ROLE_ADMIN")
         };
 		for (int i = 0; i < users.length; i++) {
+			users[i].setPassword(bCryptPasswordEncoder().encode(users[i].getPassword()));
 			userRepository.save(users[i]);
 		}
 		Review[] reviews = new Review[] {
