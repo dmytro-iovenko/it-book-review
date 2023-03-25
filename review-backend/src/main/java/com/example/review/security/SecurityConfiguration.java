@@ -8,16 +8,18 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.example.review.security.filter.AuthenticationFilter;
 import com.example.review.security.filter.ExceptionHandlerFilter;
+import com.example.review.security.manager.CustomAuthenticationManager;
 
 import lombok.AllArgsConstructor;
 
 @Configuration
 @AllArgsConstructor
 public class SecurityConfiguration {
+    private CustomAuthenticationManager customAuthenticationManager;
 	
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(customAuthenticationManager);
         authenticationFilter.setFilterProcessesUrl("/api/auth");
         http        
             .headers().frameOptions().disable() // New Line: the h2 console runs on a "frame". By default, Spring Security prevents rendering within an iframe. This line disables its prevention.
