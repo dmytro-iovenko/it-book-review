@@ -8,6 +8,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.example.review.security.filter.AuthenticationFilter;
 import com.example.review.security.filter.ExceptionHandlerFilter;
+import com.example.review.security.filter.JWTAuthorizationFilter;
 import com.example.review.security.manager.CustomAuthenticationManager;
 
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class SecurityConfiguration {
             .and()
             .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)
             .addFilter(authenticationFilter)
+            .addFilterAfter(new JWTAuthorizationFilter(), AuthenticationFilter.class)
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
     }
