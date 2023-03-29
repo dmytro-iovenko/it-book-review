@@ -5,6 +5,4 @@ public class SecurityConstants {
     public static final int TOKEN_EXPIRATION = 7200000; // 7200000 milliseconds = 7200 seconds = 2 hours.
     public static final String BEARER = "Bearer "; // Authorization : "Bearer " + Token 
     public static final String AUTHORIZATION = "Authorization"; // "Authorization" : Bearer Token
-    public static final String CREATE_REVIEW_PATH = "/api/review";  // Public path to create a new review
-    public static final String GET_REVIEWS_BY_ISBN_PATH = "/api/reviews/*"; // Public path to load reviews for the book
 }
