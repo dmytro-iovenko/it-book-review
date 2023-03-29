@@ -17,7 +17,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import com.example.review.entity.User;
@@ -66,7 +65,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getWriter(), tokenDetails);
-
     }
 
 }

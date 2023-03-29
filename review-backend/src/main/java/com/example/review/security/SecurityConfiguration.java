@@ -2,22 +2,32 @@ package com.example.review.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.example.review.security.filter.AuthenticationFilter;
 import com.example.review.security.filter.ExceptionHandlerFilter;
 import com.example.review.security.filter.JWTAuthorizationFilter;
 import com.example.review.security.manager.CustomAuthenticationManager;
+import com.example.review.service.UserDetailsServiceImpl;
 
 import lombok.AllArgsConstructor;
 
 @Configuration
 @AllArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfiguration {
     private CustomAuthenticationManager customAuthenticationManager;
 	
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(customAuthenticationManager);
@@ -31,7 +41,7 @@ public class SecurityConfiguration {
             .and()
             .addFilterBefore(new ExceptionHandlerFilter(), AuthenticationFilter.class)
             .addFilter(authenticationFilter)
-            .addFilterAfter(new JWTAuthorizationFilter(), AuthenticationFilter.class)
+            .addFilterAfter(new JWTAuthorizationFilter(userDetailsService()), AuthenticationFilter.class)
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
     }

@@ -1,7 +1,6 @@
 package com.example.review.security.filter;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -11,13 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.review.security.SecurityConstants;
 
+import lombok.AllArgsConstructor;
+
+@Component
+@AllArgsConstructor
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
+    UserDetailsService userDetailsService;
 
     // Authorization: Bearer JWT
     @Override
@@ -32,7 +39,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             .build()
             .verify(token)
             .getSubject();
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, Arrays.asList());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
