@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,15 +50,19 @@ public class ReviewServiceTest {
 
         assertEquals(review, result.get(0));
     }
-}
 
+    @Test
+    public void getReviewByIdTest() {
+        Optional<Review> review = Optional.of(new Review(1001643027241L, "Emma Johnson", "Informative content, but the presentation could be clearer.", 1643700125000L, 3));
+        when(reviewRepository.findById(0L)).thenReturn(review);
+
+        Review result = reviewService.getReviewById(0L);
+
+        assertEquals(review.get(), result);
+    }
+}
 /*
  *
-    @Override
-    public List<Review> getReviewsByIsbn(Long isbn) {
-		return reviewRepository.findByIsbnOrderByDateDesc(isbn);
-    }
-
     @Override
     public Review getReviewById(Long id) {
         Optional<Review> review = reviewRepository.findById(id);
