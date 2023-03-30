@@ -14,7 +14,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import com.example.review.entity.Review;
 import com.example.review.repository.ReviewRepository;
-import com.example.review.service.ReviewService;
 import com.example.review.service.ReviewServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -38,13 +37,22 @@ public class ReviewServiceTest {
         assertEquals(Long.valueOf(9781718501089L), result.get(1).getIsbn());
         assertEquals("Confusing structure, outdated examples.", result.get(2).getReview());
     }
+
+    @Test
+    public void getReviewsByIsbnTest() {
+        Review review = new Review(1001643027241L, "Emma Johnson", "Informative content, but the presentation could be clearer.", 1643700125000L, 3);
+        when(reviewRepository.findAll()).thenReturn(Arrays.asList(review));
+        when(reviewRepository.findByIsbnOrderByDateDesc(1001643027241L)).thenReturn(Arrays.asList(review));
+
+        Long isbn = review.getIsbn();        
+        List<Review> result = reviewService.getReviewsByIsbn(isbn);
+
+        assertEquals(review, result.get(0));
+    }
 }
 
 /*
- *     public List<Review> getReviews() {
-        return (List<Review>)reviewRepository.findAll();
-    }
-
+ *
     @Override
     public List<Review> getReviewsByIsbn(Long isbn) {
 		return reviewRepository.findByIsbnOrderByDateDesc(isbn);
