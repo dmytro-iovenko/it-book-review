@@ -70,6 +70,20 @@ public class ReviewServiceTest {
         verify(reviewRepository, times(1)).save(newReview);
 
     }
+
+    @Test
+    public void updateReviewTest() {
+        Review review =  new Review(1001643027241L, "Sophia Williams", "Confusing structure, outdated examples.", 1640917758000L, 2);
+        when(reviewRepository.findById(0L)).thenReturn(Optional.of(review));
+
+        String newName = "Alex Rodriguez";
+        review.setName(newName);
+        reviewService.updateReview(0L, review);
+        verify(reviewRepository, times(1)).save(review);
+
+        Review updatedReview = reviewService.getReviewById(0L);
+        assertEquals(newName, updatedReview.getName());
+    }
 }
 /*
  *
