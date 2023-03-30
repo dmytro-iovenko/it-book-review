@@ -1,6 +1,8 @@
 package com.example.review;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -44,7 +46,6 @@ public class ReviewServiceTest {
     @Test
     public void getReviewsByIsbnTest() {
         Review review = new Review(1001643027241L, "Emma Johnson", "Informative content, but the presentation could be clearer.", 1643700125000L, 3);
-        when(reviewRepository.findAll()).thenReturn(Arrays.asList(review));
         when(reviewRepository.findByIsbnOrderByDateDesc(1001643027241L)).thenReturn(Arrays.asList(review));
 
         Long isbn = review.getIsbn();        
@@ -84,33 +85,13 @@ public class ReviewServiceTest {
         Review updatedReview = reviewService.getReviewById(0L);
         assertEquals(newName, updatedReview.getName());
     }
+
+    @Test
+    public void deleteReviewTest() {
+        when(reviewRepository.existsById(anyLong())).thenReturn(true);
+        doNothing().when(reviewRepository).deleteById(anyLong());
+
+        reviewService.deleteReview(anyLong());
+        verify(reviewRepository, times(1)).deleteById(anyLong());
+    }
 }
-/*
- *
-    @Override
-    public Review getReviewById(Long id) {
-        Optional<Review> review = reviewRepository.findById(id);
-        return unwrapReview(review, id);
-    }
-
-    @Override
-    public Review createReview(Review review) {
-		long date = System.currentTimeMillis();
-		review.setDate(date);
-        return reviewRepository.save(review);
-    }
-    
-    @Override
-    public Review updateReview(Long id, Review updatedReview) {
-        Review review = unwrapReview(reviewRepository.findById(id), id);
-		review.updateFields(updatedReview);
-        return reviewRepository.save(review);
-    }
-
-    @Override
-    public void deleteReview(Long id) {
-		if (reviewRepository.existsById(id)) reviewRepository.deleteById(id);
-        else throw new ResourceNotFoundException(id, Review.class);
-    }
-
- */
