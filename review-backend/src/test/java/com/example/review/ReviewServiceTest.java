@@ -1,6 +1,8 @@
 package com.example.review;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -59,6 +61,14 @@ public class ReviewServiceTest {
         Review result = reviewService.getReviewById(0L);
 
         assertEquals(review.get(), result);
+    }
+
+    @Test
+    public void createReviewTest() {
+        Review newReview =  new Review(1001643027241L, "Sophia Williams", "Confusing structure, outdated examples.", 1640917758000L, 2);
+        reviewService.createReview(newReview);
+        verify(reviewRepository, times(1)).save(newReview);
+
     }
 }
 /*
